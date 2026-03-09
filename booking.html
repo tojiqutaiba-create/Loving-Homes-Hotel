@@ -33,6 +33,38 @@
             font-weight: 500;
             color: #1a3c5e;
         }
+
+        /* تنسيق الأزرار لتظهر بوضوح */
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            background-color: #FF8C00;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            flex: 2;
+        }
+
+        .btn-reset {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .btn-submit:hover { background-color: #e67e00; }
+        .btn-reset:hover { background-color: #d32f2f; }
     </style>
 </head>
 <body>
@@ -55,29 +87,91 @@
                 <li><a href="facilities.html">المرافق</a></li>
                 <li><a href="packages.html">الحزم</a></li>
                 <li><a href="contact.html">اتصل بنا</a></li>
-                <li><a href="booking.html" class="btn-booking">احجز الآن</a></li>
+                <li><a href="booking.html" class="active btn-booking">احجز الآن</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="booking-container">
-        <h2>نموذج حجز فندقي للكلاب</h2>
-        <p>يرجى تعبئة البيانات لحساب التكلفة الإجمالية لإقامة أليفك.</p>
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2>نموذج حجز فندقي للكلاب</h2>
+            <p>يرجى تعبئة البيانات لحساب التكلفة الإجمالية لإقامة أليفك.</p>
 
-        <form id="bookingForm">
-            <div class="form-group">
-                <label>اسم صاحب الكلب:</label>
-                <input type="text" id="ownerName" required>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>اسم صاحب الكلب:</label>
+                    <input type="text" id="ownerName" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>تاريخ الحجز:</label>
+                    <input type="date" id="bookingDate" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>نوع الحزمة:</label>
+                    <select id="packageType" onchange="calculateTotal()" style="width: 100%; padding: 8px; margin-top: 5px;">
+                        <option value="700">الحزمة المميزة (700$ / يوم)</option>
+                        <option value="500">الحزمة الكلاسيكية (500$ / يوم)</option>
+                        <option value="200">حزمة اليوم الواحد (200$ / يوم)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>جنس الحيوان:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="male" name="petGender" value="ذكر" required>
+                            <label for="male">ذكر</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="female" name="petGender" value="أنثى">
+                            <label for="female">أنثى</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>عدد الأيام:</label>
+                    <input type="number" id="days" min="1" value="1" oninput="calculateTotal()" style="width: 100%; padding: 8px; margin-top: 5px;">
+                </div>
+
+                <div class="result-box" style="background: #fdf6e3; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #d4a017; text-align: center;">
+                    <h3>التكلفة الإجمالية: <span id="totalPrice">700</span> دولار</h3>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">تأكيد الحجز</button>
+                    <button type="reset" class="btn-reset" onclick="resetForm()">مسح البيانات</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <div class="social-item">
+                <div class="social-icon-circle">
+                    <a href="#"><img src="whatsapp-icon.png" alt="واتساب"></a>
+                </div>
+                <span class="social-label">واتساب</span>
             </div>
-
-            <div class="form-group">
-                <label>تاريخ الحجز:</label>
-                <input type="date" id="bookingDate" required>
+            <div class="social-item">
+                <div class="social-icon-circle">
+                    <a href="#"><img src="instagram-icon.png" alt="انستقرام"></a>
+                </div>
+                <span class="social-label">انستقرام</span>
             </div>
+            <div class="social-item">
+                <div class="social-icon-circle">
+                    <a href="#"><img src="facebook-icon.png" alt="فيسبوك"></a>
+                </div>
+                <span class="social-label">فيسبوك</span>
+            </div>
+        </div>
+        <p>© 2026 لوفينغ هومز - جميع الحقوق محفوظة</p>
+    </footer>
 
-            <div class="form-group">
-                <label>نوع الحزمة:</label>
-                <select id="packageType" onchange="calculateTotal()">
-                    <option value="700">الحزمة المميزة (700$ / يوم)</option>
-                    <option value="500">الحزمة الكلاسيكية (500$ / يوم)</option>
-                    <option value="200">حزمة اليوم الواحد (200$
+    <script src="script.js"></script>
+</body>
+</html>
